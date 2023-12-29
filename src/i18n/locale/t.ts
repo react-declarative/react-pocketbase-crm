@@ -9,14 +9,11 @@ const routesMap: Record<string, Record<string, string>> = {
   "/login_page": {
     "Sign in": "Войти",
   },
-  "/register_page": {
-    "Sign in": "Регистрация",
-  },
 };
 
 const getTranslateMap = () => {
   const item = getRouteItem();
-  return routesMap[item?.path] || {};
+  return routesMap[item?.path!] || {};
 };
 
 export function t(str: string) {

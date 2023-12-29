@@ -4,6 +4,7 @@ const baseServices = {
     routerService: Symbol.for('routerService'),
     errorService: Symbol.for('errorService'),
     loggerService: Symbol.for('loggerService'),
+    pocketbaseService: Symbol.for('pocketbaseService'),
 };
 
 export const TYPES = {

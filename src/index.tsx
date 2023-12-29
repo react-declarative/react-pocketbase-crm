@@ -15,7 +15,7 @@ import {
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AlertProvider from "./components/provider/AlertProvider";
-import App from "./components/App";
+import App from "./components/common/App";
 import { CacheProvider } from "@emotion/react";
 import ComboSlot from "./components/slot/ComboSlot";
 import DateSlot from "./components/slot/DateSlot";

@@ -24,13 +24,13 @@ const handleSubmit = async (form: HTMLFormElement) => {
     return;
   }
 
-  const isOk = await ioc.authService.login({
+  const isOk = await ioc.pocketbaseService.login({
     email: email.toString().trim(),
     password: password.toString().trim(),
   });
 
   if (isOk) {
-    ioc.routerService.push("/profile");
+    ioc.routerService.push("/dashboard");
   }
 };
 
@@ -111,21 +111,6 @@ export const RegisterPage = () => {
               ),
             }}
           />
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row-reverse",
-            mb: 2,
-          }}
-        >
-          <Link
-            href="#"
-            onClick={() => ioc.routerService.push("/register_page")}
-          >
-            Регистрация
-          </Link>
         </Box>
 
         <ActionButton

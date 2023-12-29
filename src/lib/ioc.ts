@@ -1,3 +1,5 @@
+import "./config";
+
 import { Operator, Source, inject } from "react-declarative";
 
 import AlertService from "./services/base/AlertService";
@@ -5,6 +7,7 @@ import { CC_LOADER_NOT_RESPONDING_TICKS } from "../config/params";
 import ErrorService from "./services/base/ErrorService";
 import LayoutService from "./services/base/LayoutService";
 import LoggerService from "./services/base/LoggerService";
+import PocketbaseService from "./services/base/PocketbaseService";
 import RouterService from "./services/base/RouterService";
 import TYPES from "./types";
 
@@ -14,6 +17,7 @@ const baseServices = {
   layoutService: inject<LayoutService>(TYPES.layoutService),
   errorService: inject<ErrorService>(TYPES.errorService),
   loggerService: inject<LoggerService>(TYPES.loggerService),
+  pocketbaseService: inject<PocketbaseService>(TYPES.pocketbaseService),
 };
 
 const ioc = {
