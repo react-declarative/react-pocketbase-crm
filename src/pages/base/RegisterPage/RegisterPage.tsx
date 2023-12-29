@@ -1,0 +1,174 @@
+import {
+  IconButton,
+  InputAdornment,
+  Link,
+  Paper,
+  Typography,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import { ActionButton } from "react-declarative";
+import Box from "@mui/material/Box";
+import { CC_APP_NAME } from "../../../config/params";
+import TextField from "@mui/material/TextField";
+import ioc from "../../../lib/ioc";
+import { useState } from "react";
+
+const handleSubmit = async (form: HTMLFormElement) => {
+  const formData = new FormData(form);
+
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const confirm = formData.get("confirm");
+
+  if (!email) {
+    ioc.alertService.notify("Введите email");
+    return;
+  }
+
+  if (!password) {
+    ioc.alertService.notify("Введите пароль");
+    return;
+  }
+
+  if (password !== confirm) {
+    ioc.alertService.notify("Пароли не совпадают");
+    return;
+  }
+
+  const isOk = await ioc.authService.register({
+    email: email.toString().trim(),
+    password: password.toString().trim(),
+  });
+
+  if (isOk) {
+    ioc.routerService.push("/profile");
+  }
+};
+
+export const RegisterPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  return (
+    <Box
+      sx={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        height: "100vh",
+        width: "100vw",
+        background: "whitesmoke",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 99999,
+      }}
+    >
+      <Paper
+        component="form"
+        sx={{
+          p: 2,
+          marginTop: "-5vh",
+          maxWidth: "325px",
+          minWidth: "325px",
+        }}
+        onSubmit={(e: any) => {
+          e.preventDefault();
+          return false;
+        }}
+      >
+        <Typography
+          variant="h3"
+          sx={{
+            color: (theme) => theme.palette.primary.main,
+            mb: 3,
+            textAlign: "center",
+            fontWeight: "bold",
+          }}
+        >
+          {CC_APP_NAME}
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+          }}
+        >
+          <TextField
+            required
+            name="email"
+            fullWidth
+            label="Email"
+            placeholder="Email"
+            helperText="Email"
+            type="email"
+          />
+
+          <TextField
+            required
+            fullWidth
+            name="password"
+            label="Пароль"
+            placeholder="Пароль"
+            helperText="Пароль"
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={() => setShowPassword((v) => !v)}>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <TextField
+            required
+            fullWidth
+            name="confirm"
+            label="Повторите пароль"
+            placeholder="Повторите пароль"
+            helperText="Повторите пароль"
+            type={showPassword ? "text" : "password"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton edge="end" onClick={() => setShowPassword((v) => !v)}>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row-reverse",
+            mb: 2,
+          }}
+        >
+          <Link href="#" onClick={() => ioc.routerService.push("/login_page")}>
+            Вход
+          </Link>
+        </Box>
+
+        <ActionButton
+          onClick={async ({ currentTarget }) => {
+            await handleSubmit(currentTarget.closest("form")!);
+          }}
+          variant="contained"
+          type="submit"
+          fullWidth
+        >
+          Регистрация
+        </ActionButton>
+      </Paper>
+    </Box>
+  );
+};
+
+export default RegisterPage;
