@@ -39,8 +39,9 @@ export const THEME_DARK = createTheme({
       main: "#e6492d",
     },
     text: {
-      primary: "#d8dade",
-      secondary: "#868998",
+      primary: "#fff9",
+      secondary: "rgba(255, 255, 255, 0.7)",
+      disabled: "rgba(255, 255, 255, 0.5)",
     },
     background: {
       default: "#111318",

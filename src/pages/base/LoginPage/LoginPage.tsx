@@ -1,4 +1,4 @@
-import { IconButton, InputAdornment, Link, Paper, Typography } from "@mui/material";
+import { CssBaseline, IconButton, InputAdornment, Link, Paper, Typography } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { ActionButton } from "react-declarative";
@@ -15,12 +15,12 @@ const handleSubmit = async (form: HTMLFormElement) => {
   const password = formData.get("password");
 
   if (!email) {
-    ioc.alertService.notify("Введите email");
+    ioc.alertService.notify("Please enter email");
     return;
   }
 
   if (!password) {
-    ioc.alertService.notify("Введите пароль");
+    ioc.alertService.notify("Please enter password");
     return;
   }
 
@@ -44,13 +44,14 @@ export const RegisterPage = () => {
         left: 0,
         height: "100vh",
         width: "100vw",
-        background: "whitesmoke",
+        background: (theme) => theme.palette.background.default,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 99999,
       }}
     >
+      <CssBaseline />
       <Paper
         component="form"
         sx={{
@@ -97,9 +98,9 @@ export const RegisterPage = () => {
             required
             fullWidth
             name="password"
-            label="Пароль"
-            placeholder="Пароль"
-            helperText="Пароль"
+            label="Password"
+            placeholder="Password"
+            helperText="Password"
             type={showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
@@ -121,7 +122,7 @@ export const RegisterPage = () => {
           type="submit"
           fullWidth
         >
-          Войти
+          Sign in
         </ActionButton>
       </Paper>
     </Box>

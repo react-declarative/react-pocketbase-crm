@@ -7,7 +7,7 @@ function convert(str: string) {
 
 const routesMap: Record<string, Record<string, string>> = {
   "/login_page": {
-    "Sign in": "Войти",
+    "Sign in": "Login",
   },
 };
 

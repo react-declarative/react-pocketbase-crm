@@ -5,6 +5,15 @@ import { CC_POCKETBASE_URL } from "../../../config/params";
 import PocketBase from "pocketbase";
 import TYPES from "../../types";
 
+interface IUserModel {
+    id: string;
+    avatar: string;
+    email: string;
+    emailVisibility: boolean;
+    username: string;
+    user: string;
+    verified: boolean;
+}
 export class PocketbaseService {
 
   readonly alertService = inject<AlertService>(TYPES.alertService);
@@ -20,11 +29,16 @@ export class PocketbaseService {
   };
 
   get userId(): string {
-    if (this.isAuthorized) {
-        throw new Error('pockerbaseService userId not authorized')
+    if (!this.isAuthorized) {
+        return null as never;
     }
     return this._pb.authStore.model?.id;
   };
+
+  get authModel() {
+    const model = this._pb.authStore.model! || {};
+    return model as unknown as IUserModel;
+  }
 
   public login = async ({
     email,
