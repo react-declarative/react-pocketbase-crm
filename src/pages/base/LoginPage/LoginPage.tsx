@@ -81,6 +81,7 @@ export const RegisterPage = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
+            marginBottom: 3,
             gap: "15px",
           }}
         >
