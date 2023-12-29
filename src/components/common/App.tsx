@@ -77,7 +77,7 @@ const BeforeMenuContent = observer(() => (
 ));
 
 const App = () => {
-  const [item, setItem] = useState(getRouteItem());
+  const [item, setItem] = useState(getRouteItem);
   const [pathname, setPathname] = useState(ioc.routerService.location.pathname);
   const [hasAppbarLoader, setHasAppbarLoader] = useState(
     ioc.layoutService.hasAppbarLoader
