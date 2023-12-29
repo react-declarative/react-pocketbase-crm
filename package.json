@@ -30,7 +30,9 @@
     "cleanup": "npx -y rimraf ./node_modules/.vite",
     "build": "node --max_old_space_size=16384 ./node_modules/vite/bin/vite.js build",
     "tscheck": "tsc --noEmit",
-    "preview": "vite preview --host 0.0.0.0 --port 3000"
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "pocketbase": "sh ./scripts/pocketbase.sh",
+    "pocketbase:win": ".\\scripts\\pocketbase.bat"
   },
   "devDependencies": {
     "@types/lodash": "4.14.195",

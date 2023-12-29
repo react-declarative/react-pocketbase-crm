@@ -1,3 +1,7 @@
 3rdparty/pocketbase_0.20.1_linux_amd64.zip filter=lfs diff=lfs merge=lfs -text
 3rdparty/pocketbase_0.20.1_windows_amd64.zip filter=lfs diff=lfs merge=lfs -text
+db/pb_data/data.db filter=lfs diff=lfs merge=lfs -text
+db/pb_data/logs.db filter=lfs diff=lfs merge=lfs -text
+db/pb_data/types.d.ts filter=lfs diff=lfs merge=lfs -text
+3rdparty/pocketbase_0.20.1_windows_amd64.zip filter=lfs diff=lfs merge=lfs -text
 * linguist-language=TypeScript
