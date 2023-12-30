@@ -13,6 +13,7 @@ import routes, {
 } from "../../config/routes";
 import { useEffect, useMemo, useState } from "react";
 
+import AppHeader from "./AppHeader";
 import Box from "@mui/material/Box";
 import { CC_APP_NAME } from "../../config/params";
 import ListItem from "@mui/material/ListItem";
@@ -137,6 +138,7 @@ const App = () => {
       <Scaffold2
         fixedHeader
         noOptionHover
+        noAppName
         noContent={noContent}
         appName={CC_APP_NAME}
         deps={[pathname]}
@@ -152,6 +154,7 @@ const App = () => {
         onAction={handleAction}
         onInit={handleInit}
         BeforeMenuContent={BeforeMenuContent}
+        BeforeSearch={AppHeader}
         AfterContent={Version}
       >
         <Switch

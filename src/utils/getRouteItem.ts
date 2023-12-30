@@ -1,14 +1,16 @@
-import { getRouteItem as getRouteItemBase, memoize } from 'react-declarative';
+import { getRouteItem as getRouteItemBase, ttl } from 'react-declarative';
 import routes, { IRouteItem } from '../config/routes';
 
 import ioc from '../lib/ioc';
 
-export const getRouteItem = memoize(() => ioc.routerService.location.pathname, () => {
+export const getRouteItem = ttl(() => {
     return getRouteItemBase<IRouteItem>(routes, ioc.routerService.location.pathname)
+}, {
+    key: () => ioc.routerService.location.pathname, 
 })
 
 ioc.routerService.listen(() => {
-    getRouteItem.clear();
+    getRouteItem.gc();
 });
 
 export default getRouteItem;
