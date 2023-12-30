@@ -5,7 +5,7 @@ export const scaffoldactions: IScaffoldOption[] = [
     {
       action: 'logout-action',
       icon: LogoutIcon,
-      label: 'Выйти',
+      label: 'Sign out',
     },
 ];
 
