@@ -1,4 +1,5 @@
 import AlertService from './services/base/AlertService';
+import EmployeeDbService from './services/db/EmployeeDbService';
 import ErrorService from './services/base/ErrorService';
 import LayoutService from './services/base/LayoutService';
 import LoggerService from './services/base/LoggerService';
@@ -13,3 +14,5 @@ provide(TYPES.routerService, () => new RouterService());
 provide(TYPES.errorService, () => new ErrorService());
 provide(TYPES.loggerService, () => new LoggerService());
 provide(TYPES.pocketbaseService, () => new PocketbaseService());
+
+provide(TYPES.employeeDbService, () => new EmployeeDbService());

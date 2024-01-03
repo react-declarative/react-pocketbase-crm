@@ -4,6 +4,7 @@ import { Operator, Source, inject } from "react-declarative";
 
 import AlertService from "./services/base/AlertService";
 import { CC_LOADER_NOT_RESPONDING_TICKS } from "../config/params";
+import EmployeeDbService from "./services/db/EmployeeDbService";
 import ErrorService from "./services/base/ErrorService";
 import LayoutService from "./services/base/LayoutService";
 import LoggerService from "./services/base/LoggerService";
@@ -20,8 +21,13 @@ const baseServices = {
   pocketbaseService: inject<PocketbaseService>(TYPES.pocketbaseService),
 };
 
+const dbServices = {
+  employeeDbService: inject<EmployeeDbService>(TYPES.employeeDbService),
+};
+
 const ioc = {
   ...baseServices,
+  ...dbServices,
 };
 
 ioc.layoutService.setModalLoader(true);
