@@ -53,7 +53,7 @@ const wrappedApp = (
     <CacheProvider value={muiCache}>
       <TssCacheProvider value={tssCache}>
         <ThemeProvider theme={THEME_DARK}>
-          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+          <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
             <OneSlotFactory Combo={ComboSlot} Date={DateSlot} Time={TimeSlot}>
               <ListSlotFactory FilterListSlot={ModalFilterListSlot}>
                 <ModalProvider>
