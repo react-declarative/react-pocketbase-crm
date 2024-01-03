@@ -8,7 +8,7 @@ import {
 } from "react-declarative";
 
 import HistoryPage from "./pages/HistoryPage";
-import ListPage from "./pages/common/ListPage";
+import ListPage from "./pages/ListPage";
 import OnePage from "./pages/OnePage";
 import hasRouteMatch from "../../../utils/hasRouteMatch";
 import ioc from "../../../lib/ioc";
@@ -22,21 +22,25 @@ const routes: IOutlet[] = [
   {
     id: "list",
     element: ListPage,
-    isActive: (pathname) =>
-      hasRouteMatch(["/employee", "/employee_archive"], pathname),
+    isActive: (pathname) => hasRouteMatch(["/employee_list"], pathname),
     isAvailable: () => false,
   },
   {
     id: "employee",
     element: OnePage,
-    isActive: (pathname) =>
-      hasRouteMatch(["/employee/:id", "/employee/:id/employee"], pathname),
+    isActive: (pathname) => {
+      return hasRouteMatch(
+        ["/employee_card/:id", "/employee_card/:id/employee"],
+        pathname
+      );
+    },
     isAvailable: () => false,
   },
   {
     id: "history",
     element: HistoryPage,
-    isActive: (pathname) => hasRouteMatch(["/employee/:id/history"], pathname),
+    isActive: (pathname) =>
+      hasRouteMatch(["/employee_card/:id/history"], pathname),
     isAvailable: () => false,
   },
 ];
@@ -46,7 +50,7 @@ export const EmployeePage = ({ id = "create" }: IEmployeePageProps) => {
     let isOk = true;
     try {
       await ioc.employeeViewService.update(id, data.employee);
-      ioc.alertService.notify("Изменения сохранены");
+      ioc.alertService.notify("Saved");
     } catch (error) {
       isOk = false;
       const msg = getErrorMessage(error);
@@ -84,7 +88,7 @@ export const EmployeePage = ({ id = "create" }: IEmployeePageProps) => {
           routes={routes}
           params={{ id }}
           initialData={{
-            employee
+            employee,
           }}
           payload={() => ({
             employee,

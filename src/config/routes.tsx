@@ -1,3 +1,4 @@
+import EmployeePage from "../pages/view/EmployeePage/EmployeePage";
 import ErrorPage from "../pages/base/ErrorPage";
 import { ISwitchItem } from "react-declarative";
 import LoginPage from "../pages/base/LoginPage";
@@ -26,8 +27,24 @@ export const routes: IRouteItem[] = [
     path: "/",
     sideMenu: "root.global.user",
     element: redirect(() => {
-      ioc.routerService.push("/dashboard");
+      ioc.routerService.push("/employee_list");
     }),
+  },
+  {
+    path: "/employee_card/:id/history",
+    element: EmployeePage,
+  },
+  {
+    path: "/employee_card/:id/employee",
+    element: EmployeePage,
+  },
+  {
+    path: "/employee_card/:id",
+    element: EmployeePage,
+  },
+  {
+    path: "/employee_list/",
+    element: EmployeePage,
   },
   ...baseRoutes,
 ];

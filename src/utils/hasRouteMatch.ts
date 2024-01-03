@@ -1,16 +1,20 @@
-import { getRouteItem, ttl } from 'react-declarative';
+import { getRouteItem, memoize } from "react-declarative";
 
-import ioc from '../lib/ioc';
-import routes from '../config/routes';
+import ioc from "../lib/ioc";
+import routes from "../config/routes";
 
-export const hasRouteMatch = ttl((templates: string[], pathname = ioc.routerService.location.pathname) => {
-    return !!getRouteItem(routes.filter(({ path }) => templates.includes(path)), pathname);
-}, {
-    key: () => ioc.routerService.location.pathname,
-});
+export const hasRouteMatch = memoize(
+  ([templates, pathname]) => `${templates.join("-")}-${pathname}`,
+  (templates: string[], pathname = ioc.routerService.location.pathname) => {
+    return !!getRouteItem(
+      routes.filter(({ path }) => templates.includes(path)),
+      pathname
+    );
+  }
+);
 
 ioc.routerService.listen(() => {
-    hasRouteMatch.gc();
+  hasRouteMatch.clear();
 });
 
 export default hasRouteMatch;

@@ -1,5 +1,68 @@
-export const OnePage = () => {
+import {
+  Breadcrumbs2,
+  Breadcrumbs2Type,
+  IBreadcrumbs2Option,
+  IOutletProps,
+  One,
+  ScrollAdjust,
+} from "react-declarative";
 
-}
+import employee_fields from "../../../../assets/employee_fields";
+import ioc from "../../../../lib/ioc";
 
-export default OnePage
+const options: IBreadcrumbs2Option[] = [
+  {
+    type: Breadcrumbs2Type.Link,
+    action: "list-action",
+    label: "Employees",
+  },
+  {
+    type: Breadcrumbs2Type.Link,
+    action: "list-action",
+    label: "Employee",
+  },
+  {
+    type: Breadcrumbs2Type.Button,
+    isDisabled: ({ hasChanged }) => !hasChanged,
+    action: "save-action",
+    label: "Save",
+  },
+];
+
+export const OnePage = ({
+  payload,
+  onChange,
+  formState,
+  data,
+  beginSave,
+}: IOutletProps) => {
+  const handleAction = (action: string) => {
+    if (action === "list-action") {
+      ioc.routerService.back();
+    }
+    if (action === "save-action") {
+      beginSave();
+    }
+  };
+
+  return (
+    <>
+      <Breadcrumbs2
+        onAction={handleAction}
+        items={options}
+        payload={formState}
+      />
+      <One
+        dirty
+        handler={() => data}
+        fields={employee_fields}
+        payload={payload}
+        features={payload.features}
+        onChange={onChange}
+      />
+      <ScrollAdjust />
+    </>
+  );
+};
+
+export default OnePage;

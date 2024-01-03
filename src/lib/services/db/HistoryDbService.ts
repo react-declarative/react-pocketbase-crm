@@ -48,7 +48,7 @@ export class HistoryDbService {
   public findAllByEmployeeId = async (employeeId: string) => {
     const rows = await this.pocketbaseService.pb
       .collection("history")
-      .getFullList({
+      .getFullList<IHistoryModel>({
         filter: `employee_id == ${employeeId}`,
       });
     return listTransform(rows);
