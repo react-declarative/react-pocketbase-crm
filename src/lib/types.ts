@@ -9,11 +9,18 @@ const baseServices = {
 
 const dbService = {
     employeeDbService: Symbol.for('employeeDbService'),
-}
+    historyDbService: Symbol.for('historyDbService'),
+};
+
+const viewService = {
+    employeeViewService: Symbol.for('employeeViewService'),
+    historyViewService: Symbol.for('historyViewService'),
+};
 
 export const TYPES = {
     ...baseServices,
     ...dbService,
+    ...viewService,
 };
 
 export default TYPES;

@@ -1,6 +1,9 @@
 import AlertService from './services/base/AlertService';
 import EmployeeDbService from './services/db/EmployeeDbService';
+import EmployeeViewService from './services/view/EmployeeViewService';
 import ErrorService from './services/base/ErrorService';
+import HistoryDbService from './services/db/HistoryDbService';
+import HistoryViewService from './services/view/HistoryViewService';
 import LayoutService from './services/base/LayoutService';
 import LoggerService from './services/base/LoggerService';
 import PocketbaseService from './services/base/PocketbaseService';
@@ -16,3 +19,7 @@ provide(TYPES.loggerService, () => new LoggerService());
 provide(TYPES.pocketbaseService, () => new PocketbaseService());
 
 provide(TYPES.employeeDbService, () => new EmployeeDbService());
+provide(TYPES.historyDbService, () => new HistoryDbService());
+
+provide(TYPES.employeeViewService, () => new EmployeeViewService());
+provide(TYPES.historyViewService, () => new HistoryViewService());

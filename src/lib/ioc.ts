@@ -5,7 +5,10 @@ import { Operator, Source, inject } from "react-declarative";
 import AlertService from "./services/base/AlertService";
 import { CC_LOADER_NOT_RESPONDING_TICKS } from "../config/params";
 import EmployeeDbService from "./services/db/EmployeeDbService";
+import EmployeeViewService from "./services/view/EmployeeViewService";
 import ErrorService from "./services/base/ErrorService";
+import HistoryDbService from "./services/db/HistoryDbService";
+import HistoryViewService from "./services/view/HistoryViewService";
 import LayoutService from "./services/base/LayoutService";
 import LoggerService from "./services/base/LoggerService";
 import PocketbaseService from "./services/base/PocketbaseService";
@@ -23,11 +26,18 @@ const baseServices = {
 
 const dbServices = {
   employeeDbService: inject<EmployeeDbService>(TYPES.employeeDbService),
+  historyDbService: inject<HistoryDbService>(TYPES.historyDbService),
+};
+
+const viewServices = {
+  employeeViewService: inject<EmployeeViewService>(TYPES.employeeViewService),
+  historyViewService: inject<HistoryViewService>(TYPES.historyViewService),
 };
 
 const ioc = {
   ...baseServices,
   ...dbServices,
+  ...viewServices,
 };
 
 ioc.layoutService.setModalLoader(true);
