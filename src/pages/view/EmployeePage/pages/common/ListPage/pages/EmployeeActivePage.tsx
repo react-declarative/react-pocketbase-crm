@@ -8,7 +8,6 @@ import { actions, columns, filters, rowActions } from "../../../../../../../asse
 
 import { IEmployeeRow } from "../../../../../../../lib/services/db/EmployeeDbService";
 import ioc from "../../../../../../../lib/ioc";
-import { observer } from "mobx-react";
 import useEmployeeListAction from "../../../../../../../hooks/useEmployeeListAction";
 import useEmployeePaginator from "../../../../../../../api/useEmployeePaginator";
 
@@ -45,6 +44,10 @@ export const EmployeeActivePage = ({
       filters={filters}
       columns={columns}
       handler={handler}
+      payload={() => ({
+        ...payload,
+        _active: true,
+      })}
       onRowClick={handleRowClick}
       onRowAction={commitRowAction}
       onAction={commitAction}

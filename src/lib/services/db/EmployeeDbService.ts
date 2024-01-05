@@ -56,7 +56,8 @@ export class EmployeeDbService {
     { limit, offset },
     sort,
     chips,
-    search
+    search,
+    payload
   ) => {
     const pick = pickDocuments<IEmployeeRow>(limit, offset);
     for await (let rows of iterateDocuments<IEmployeeRow>({
@@ -119,6 +120,14 @@ export class EmployeeDbService {
             "id"
           );
         });
+      }
+
+      if (payload._active) {
+        rows = rows.filter(({ is_active }) => is_active)
+      }
+
+      if (payload._inactive) {
+        rows = rows.filter(({ is_active }) => !is_active)
       }
 
       if (pick(rows).done) {
