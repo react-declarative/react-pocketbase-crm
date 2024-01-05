@@ -46,7 +46,7 @@ export const EmployeeInactivePage = ({ payload }: IOutletProps) => {
       handler={handler}
       payload={() => ({
         ...payload,
-        _active: true,
+        _inactive: true,
       })}
       onRowClick={handleRowClick}
       onRowAction={commitRowAction}
