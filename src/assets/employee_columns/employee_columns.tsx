@@ -70,7 +70,7 @@ export const actions: IListAction[] = [
 export const rowActions: IListRowAction[] = [
   {
     label: "Open preview",
-    action: "open-action",
+    action: "open-preview",
     icon: ArrowForward,
   },
   {

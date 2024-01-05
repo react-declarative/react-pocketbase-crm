@@ -1,42 +1,23 @@
 import {
-  Breadcrumbs2,
-  Breadcrumbs2Type,
-  IBreadcrumbs2Option,
+  FilesView,
   IOutletProps,
+  PaperView,
   VirtualView,
+  downloadBlank,
   useAsyncAction,
 } from "react-declarative";
-import { List, ListItemButton, ListItemText } from "@mui/material";
 
-import { IHistoryRow } from "../../../../lib/services/db/HistoryDbService";
+import { IHistoryRow } from "../../../lib/services/db/HistoryDbService";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
+import { SideBar } from "../components/SideBar";
 import dayjs from "dayjs";
-import ioc from "../../../../lib/ioc";
+import ioc from "../../../lib/ioc";
 import { useState } from "react";
 
-const options: IBreadcrumbs2Option[] = [
-  {
-    type: Breadcrumbs2Type.Link,
-    action: "list-action",
-    label: "Employees",
-  },
-  {
-    type: Breadcrumbs2Type.Link,
-    action: "list-action",
-    label: "History",
-  },
-  {
-    type: Breadcrumbs2Type.Button,
-    isDisabled: ({ hasChanged }) => !hasChanged,
-    action: "save-action",
-    label: "Save",
-  },
-];
-
-export const HistoryPage = ({
-  formState,
-  beginSave,
-  params: { id },
-}: IOutletProps) => {
+export const HistoryView = ({ history, payload, params: { id } }: IOutletProps) => {
   const [items, setItems] = useState<IHistoryRow[]>([]);
 
   const { loading, execute } = useAsyncAction(
@@ -55,26 +36,11 @@ export const HistoryPage = ({
       onLoadEnd: () => ioc.layoutService.setAppbarLoader(false),
     }
   );
-
-  const handleAction = (action: string) => {
-    if (action === "list-action") {
-      ioc.routerService.push('/employee_active');
-    }
-    if (action === "save-action") {
-      beginSave();
-    }
-  };
-
   return (
-    <>
-      <Breadcrumbs2
-        payload={formState}
-        items={options}
-        onAction={handleAction}
-      />
+    <SideBar history={history} payload={payload}>
       <VirtualView
         component={List}
-        sx={{ height: "calc(100vh - 200px)" }}
+        sx={{ height: "calc(100vh - 300px)" }}
         minHeight={72}
         loading={loading}
         onDataRequest={(initial) => void execute(initial)}
@@ -88,8 +54,8 @@ export const HistoryPage = ({
           </ListItemButton>
         ))}
       </VirtualView>
-    </>
+    </SideBar>
   );
 };
 
-export default HistoryPage;
+export default HistoryView;

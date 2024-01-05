@@ -38,7 +38,7 @@ export const OnePage = ({
 }: IOutletProps) => {
   const handleAction = (action: string) => {
     if (action === "list-action") {
-      ioc.routerService.back();
+      ioc.routerService.push('/employee_active');
     }
     if (action === "save-action") {
       beginSave();
