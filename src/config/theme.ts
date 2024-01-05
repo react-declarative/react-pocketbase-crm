@@ -10,6 +10,15 @@ export const THEME_DARK = createTheme({
       xl: 1536,
     },
   },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: "unset",
+        }
+      }
+    }
+  },
   palette: {
     mode: "dark",
     primary: {
