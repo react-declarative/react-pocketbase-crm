@@ -17,16 +17,26 @@ const options: IBreadcrumbs2Option[] = [
   {
     type: Breadcrumbs2Type.Link,
     action: "list-action",
-    label: "Контакты",
+    label: "Employees",
   },
   {
     type: Breadcrumbs2Type.Link,
     action: "list-action",
-    compute: ({ data }) => `Контакт №${data.contact.index}`,
+    label: "History",
+  },
+  {
+    type: Breadcrumbs2Type.Button,
+    isDisabled: ({ hasChanged }) => !hasChanged,
+    action: "save-action",
+    label: "Save",
   },
 ];
 
-export const HistoryPage = ({ formState, params: { id } }: IOutletProps) => {
+export const HistoryPage = ({
+  formState,
+  beginSave,
+  params: { id },
+}: IOutletProps) => {
   const [items, setItems] = useState<IHistoryRow[]>([]);
 
   const { loading, execute } = useAsyncAction(
@@ -49,6 +59,9 @@ export const HistoryPage = ({ formState, params: { id } }: IOutletProps) => {
   const handleAction = (action: string) => {
     if (action === "list-action") {
       ioc.routerService.back();
+    }
+    if (action === "save-action") {
+      beginSave();
     }
   };
 

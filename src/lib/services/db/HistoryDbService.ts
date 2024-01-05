@@ -49,7 +49,7 @@ export class HistoryDbService {
     const rows = await this.pocketbaseService.pb
       .collection("history")
       .getFullList<IHistoryModel>({
-        filter: `employee_id == ${employeeId}`,
+        filter: `employee_id ?= "${employeeId}"`,
       });
     return listTransform(rows);
   };

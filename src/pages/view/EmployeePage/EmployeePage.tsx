@@ -35,14 +35,12 @@ const routes: IOutlet[] = [
         pathname
       );
     },
-    isAvailable: () => false,
   },
   {
     id: "history",
     element: HistoryPage,
     isActive: (pathname) =>
       hasRouteMatch(["/employee/:id/history"], pathname),
-    isAvailable: () => false,
   },
 ];
 

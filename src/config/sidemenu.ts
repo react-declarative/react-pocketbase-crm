@@ -8,6 +8,7 @@ import SettingsEthernetIcon from "@mui/icons-material/SettingsEthernet";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SettingsInputComponentIcon from "@mui/icons-material/SettingsInputComponent";
 import TimerIcon from "@mui/icons-material/Timer";
+import hasRouteMatch from "../utils/hasRouteMatch";
 
 export const sidemenu: IScaffold2Group[] = [
   {
@@ -24,6 +25,31 @@ export const sidemenu: IScaffold2Group[] = [
           {
             id: "inactive",
           },
+        ],
+        tabs: [
+          {
+            id: "data",
+            isVisible: () => hasRouteMatch([
+              "/employee/:id",
+              "/employee/:id/employee",
+              "/employee/:id/history"
+            ]),
+            isActive: () => hasRouteMatch([
+              "/employee/:id",
+              "/employee/:id/employee",
+            ]),
+          },
+          {
+            id: "history",
+            isVisible: () => hasRouteMatch([
+              "/employee/:id",
+              "/employee/:id/employee",
+              "/employee/:id/history"
+            ]),
+            isActive: () => hasRouteMatch([
+              "/employee/:id/history"
+            ]),
+          }
         ],
       },
       { id: "never", label: "lorem ipsum", icon: DnsRoundedIcon },

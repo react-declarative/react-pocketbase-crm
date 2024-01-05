@@ -1,8 +1,9 @@
+import getRouteParams, { getRouteParam } from "../utils/getRouteParams";
+
 import EmployeePage from "../pages/view/EmployeePage/EmployeePage";
 import ErrorPage from "../pages/base/ErrorPage";
 import { ISwitchItem } from "react-declarative";
 import LoginPage from "../pages/base/LoginPage";
-import getRouteParams from "../utils/getRouteParams";
 import heavy from "../components/hoc/heavy";
 import ioc from "../lib/ioc";
 import redirect from "../components/hoc/redirect";
@@ -58,26 +59,16 @@ export const routes: IRouteItem[] = [
   ...baseRoutes,
 ];
 
+/**
+ * @description `<OutletView />` will catch history replace so last form changes wont be loose
+ */
 export const handleTabClick = (path: string) => {
-  const params = getRouteParams();
-  console.log({ path });
-  if (path === "root.global.settings.common") {
-    ioc.routerService.push(`/settings/common`);
+  const id = getRouteParam("id", null);
+  if (path === "root.data.employee.data") {
+    ioc.routerService.replace(`/employee/${id}/employee`);
   }
-  if (path === "root.global.settings.roles") {
-    ioc.routerService.push(`/settings/roles`);
-  }
-  if (path === "root.global.settings.integration") {
-    ioc.routerService.push(`/settings/integration`);
-  }
-  if (path === "root.global.settings.field_visibility") {
-    ioc.routerService.push(`/settings/field_visibility`);
-  }
-  if (path === "root.global.settings.autofind_config") {
-    ioc.routerService.push(`/settings/autofind_config`);
-  }
-  if (path === "root.global.settings.export_data") {
-    ioc.routerService.push(`/settings/export_data`);
+  if (path === "root.data.employee.history") {
+    ioc.routerService.replace(`/employee/${id}/history`);
   }
 };
 
