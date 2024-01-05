@@ -1,3 +1,4 @@
+import { Dashboard } from "@mui/icons-material";
 import DnsRoundedIcon from "@mui/icons-material/DnsRounded";
 import { IScaffold2Group } from "react-declarative";
 import PeopleIcon from "@mui/icons-material/People";
@@ -14,6 +15,10 @@ export const sidemenu: IScaffold2Group[] = [
   {
     id: "data",
     children: [
+      {
+        id: "kanban",
+        icon: Dashboard,
+      },
       {
         id: "employee",
         icon: PeopleIcon,

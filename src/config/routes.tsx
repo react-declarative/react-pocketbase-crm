@@ -3,6 +3,7 @@ import getRouteParams, { getRouteParam } from "../utils/getRouteParams";
 import EmployeePage from "../pages/view/EmployeePage/EmployeePage";
 import ErrorPage from "../pages/base/ErrorPage";
 import { ISwitchItem } from "react-declarative";
+import KanbanPage from "../pages/view/KanbanPage";
 import LoginPage from "../pages/base/LoginPage";
 import heavy from "../components/hoc/heavy";
 import ioc from "../lib/ioc";
@@ -30,6 +31,12 @@ export const routes: IRouteItem[] = [
     element: redirect(() => {
       ioc.routerService.push("/employee_active");
     }),
+  },
+
+  {
+    path: "/kanban",
+    sideMenu: "root.data.kanban",
+    element: KanbanPage,
   },
   {
     path: "/employee/:id/history",
@@ -73,6 +80,12 @@ export const handleTabClick = (path: string) => {
 };
 
 export const handleOptionClick = (path: string) => {
+  if (path === "root.data.kanban") {
+    ioc.routerService.push("/kanban");
+  }
+  if (path === "root.data.employee") {
+    ioc.routerService.push("/employee_active");
+  }
   if (path === "root.data.employee.active") {
     ioc.routerService.push("/employee_active");
   }
