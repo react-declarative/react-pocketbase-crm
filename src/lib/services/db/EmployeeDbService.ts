@@ -49,9 +49,15 @@ export class EmployeeDbService {
 
   constructor() {
     makeObservable(this, {});
-  };
+  }
 
-  public paginate: Paginator = async (filterData, { limit, offset }) => {
+  public paginate: Paginator = async (
+    filterData,
+    { limit, offset },
+    sort,
+    chips,
+    search
+  ) => {
     const pick = pickDocuments<IEmployeeRow>(limit, offset);
     for await (let rows of iterateDocuments<IEmployeeRow>({
       limit,
@@ -62,7 +68,6 @@ export class EmployeeDbService {
         return listTransform(items);
       },
     })) {
-
       if (filterData.email) {
         rows = rows.filter((row) => {
           return compareFulltext(row, filterData.email, "email");
@@ -100,6 +105,20 @@ export class EmployeeDbService {
             return row.status?.includes(status);
           });
         }
+      }
+
+      if (search) {
+        rows = rows.filter((row) => {
+          return compareFulltext(
+            row,
+            search,
+            "first_name",
+            "last_name",
+            "phone",
+            "email",
+            "id"
+          );
+        });
       }
 
       if (pick(rows).done) {

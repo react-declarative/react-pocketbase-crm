@@ -24,6 +24,7 @@ export const MainListPage = observer(() => {
   return (
     <List
       withCustomFilters
+      withSearch
       reloadSubject={ioc.employeeViewService.reloadSubject}
       title="Active employee"
       filterLabel="Filters"

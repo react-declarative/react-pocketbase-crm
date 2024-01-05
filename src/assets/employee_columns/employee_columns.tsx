@@ -10,6 +10,7 @@ import ioc from "../../lib/ioc";
 export const columns: IColumn<IEmployeeRow>[] = [
   {
     type: ColumnType.Compute,
+    sortable: false,
     field: "id",
     headerName: "ID",
     secondary: true,
