@@ -1,4 +1,5 @@
 import {
+  IOutletProps,
   List,
   SelectionMode,
   useQueryPagination,
@@ -13,12 +14,17 @@ import useEmployeePaginator from "../../../../../../../api/useEmployeePaginator"
 
 const heightRequest = () => window.innerHeight - 80;
 
-export const MainListPage = observer(() => {
+export const EmployeeActivePage = ({
+  payload,
+}: IOutletProps) => {
   const { listProps } = useQueryPagination();
 
   const {
     commitRowAction,
-  } = useEmployeeListAction();
+    commitAction,
+  } = useEmployeeListAction({
+    payload,
+  });
 
   const handler = useEmployeePaginator();
 
@@ -32,7 +38,7 @@ export const MainListPage = observer(() => {
       withSearch
       reloadSubject={ioc.employeeViewService.reloadSubject}
       title="Active employee"
-      filterLabel="Filters"
+      filterLabel="Context search"
       heightRequest={heightRequest}
       rowActions={rowActions}
       actions={actions}
@@ -41,10 +47,11 @@ export const MainListPage = observer(() => {
       handler={handler}
       onRowClick={handleRowClick}
       onRowAction={commitRowAction}
+      onAction={commitAction}
       selectionMode={SelectionMode.Multiple}
       {...listProps}
     />
   );
-});
+};
 
-export default MainListPage;
+export default EmployeeActivePage;

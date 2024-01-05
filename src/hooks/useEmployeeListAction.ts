@@ -1,10 +1,18 @@
 import ioc from "../lib/ioc";
-import useEmployeeModal from "../view/useEmployeeModal";
+import useEmployeeCreateModal from "../view/useEmployeeCreateModal";
+import useEmployeePreviewModal from "../view/useEmployeePreviewModal";
 import { useListAction } from "react-declarative";
 
-export const useEmployeeListAction = () => {
+interface IParams {
+  payload: Record<string, any>;
+}
 
-  const pickEmployeeModal = useEmployeeModal();
+export const useEmployeeListAction = ({
+  payload,
+}: IParams) => {
+
+  const pickEmployeePreviewModal = useEmployeePreviewModal();
+  const pickEmployeeCreateModal = useEmployeeCreateModal({ payload });
 
   return useListAction({
     fetchRow: async (id) => await ioc.employeeViewService.read(id as string),
@@ -13,9 +21,14 @@ export const useEmployeeListAction = () => {
         ioc.employeeViewService.toggleActive(row.id);
       }
       if (action === "open-preview") {
-        pickEmployeeModal(row.id);
+        pickEmployeePreviewModal(row.id);
       }
       deselectAll();
+    },
+    onAction: (action) => {
+      if (action === "add-action") {
+        pickEmployeeCreateModal();
+      }
     },
     onLoadStart: () => ioc.layoutService.setAppbarLoader(true),
     onLoadEnd: () => ioc.layoutService.setAppbarLoader(false),
