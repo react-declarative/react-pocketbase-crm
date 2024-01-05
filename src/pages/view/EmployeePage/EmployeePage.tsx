@@ -8,7 +8,7 @@ import {
 } from "react-declarative";
 
 import HistoryPage from "./pages/HistoryPage";
-import ListPage from "./pages/ListPage";
+import ListPage from "./pages/common/ListPage";
 import OnePage from "./pages/OnePage";
 import hasRouteMatch from "../../../utils/hasRouteMatch";
 import ioc from "../../../lib/ioc";
@@ -22,7 +22,8 @@ const routes: IOutlet[] = [
   {
     id: "list",
     element: ListPage,
-    isActive: (pathname) => hasRouteMatch(["/employee_list"], pathname),
+    isActive: (pathname) =>
+      hasRouteMatch(["/employee_active", "/employee_inactive"], pathname),
     isAvailable: () => false,
   },
   {
@@ -30,7 +31,7 @@ const routes: IOutlet[] = [
     element: OnePage,
     isActive: (pathname) => {
       return hasRouteMatch(
-        ["/employee_card/:id", "/employee_card/:id/employee"],
+        ["/employee/:id", "/employee/:id/employee"],
         pathname
       );
     },
@@ -40,12 +41,12 @@ const routes: IOutlet[] = [
     id: "history",
     element: HistoryPage,
     isActive: (pathname) =>
-      hasRouteMatch(["/employee_card/:id/history"], pathname),
+      hasRouteMatch(["/employee/:id/history"], pathname),
     isAvailable: () => false,
   },
 ];
 
-export const EmployeePage = ({ id = "create" }: IEmployeePageProps) => {
+export const EmployeePage = ({ id = "never" }: IEmployeePageProps) => {
   const handleSubmit = async (data: Record<string, any>) => {
     let isOk = true;
     try {

@@ -17,7 +17,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AlertProvider from "./components/provider/AlertProvider";
 import App from "./components/common/App";
 import { CacheProvider } from "@emotion/react";
-import ComboSlot from "./components/slot/ComboSlot";
 import DateSlot from "./components/slot/DateSlot";
 import { ErrorBoundary } from "react-declarative";
 import LayoutProvider from "./components/provider/LayoutProvider";
@@ -54,7 +53,7 @@ const wrappedApp = (
       <TssCacheProvider value={tssCache}>
         <ThemeProvider theme={THEME_DARK}>
           <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-            <OneSlotFactory Combo={ComboSlot} Date={DateSlot} Time={TimeSlot}>
+            <OneSlotFactory Date={DateSlot} Time={TimeSlot}>
               <ListSlotFactory FilterListSlot={ModalFilterListSlot}>
                 <ModalProvider>
                   <ModalManagerProvider>

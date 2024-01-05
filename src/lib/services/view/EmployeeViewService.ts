@@ -35,6 +35,11 @@ export class EmployeeViewService {
     return await this.employeeDbService.create(dto);
   };
 
+  toggleActive = async (id: string) => {
+    this.loggerService.log("employeeViewService toggleActive", { id });
+    return await this.employeeDbService.toggleActive(id);
+  };
+
   update = async (id: string, dto: IEmployeeDto) => {
     this.loggerService.log("employeeViewService update", dto);
     return await this.employeeDbService.update(id, dto);
