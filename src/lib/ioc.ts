@@ -13,6 +13,8 @@ import LayoutService from "./services/base/LayoutService";
 import LoggerService from "./services/base/LoggerService";
 import PocketbaseService from "./services/base/PocketbaseService";
 import RouterService from "./services/base/RouterService";
+import SettingsDbService from "./services/db/SettingsDbService";
+import SettingsViewService from "./services/view/SettingsViewService";
 import TYPES from "./types";
 
 const baseServices = {
@@ -27,11 +29,13 @@ const baseServices = {
 const dbServices = {
   employeeDbService: inject<EmployeeDbService>(TYPES.employeeDbService),
   historyDbService: inject<HistoryDbService>(TYPES.historyDbService),
+  settingsDbService: inject<SettingsDbService>(TYPES.settingsDbService),
 };
 
 const viewServices = {
   employeeViewService: inject<EmployeeViewService>(TYPES.employeeViewService),
   historyViewService: inject<HistoryViewService>(TYPES.historyViewService),
+  settingsViewService: inject<SettingsViewService>(TYPES.settingsViewService),
 };
 
 const ioc = {

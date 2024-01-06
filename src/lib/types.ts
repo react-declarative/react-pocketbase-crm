@@ -10,11 +10,13 @@ const baseServices = {
 const dbService = {
     employeeDbService: Symbol.for('employeeDbService'),
     historyDbService: Symbol.for('historyDbService'),
+    settingsDbService: Symbol.for('settingsDbService'),
 };
 
 const viewService = {
     employeeViewService: Symbol.for('employeeViewService'),
     historyViewService: Symbol.for('historyViewService'),
+    settingsViewService: Symbol.for('settingsViewService'),
 };
 
 export const TYPES = {

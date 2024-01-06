@@ -140,7 +140,9 @@ export class EmployeeDbService {
   public findAll = async () => {
     const rows = await this.pocketbaseService.pb
       .collection("employee")
-      .getFullList<IEmployeeModel>();
+      .getFullList<IEmployeeModel>({
+        filter: 'is_active ?= true'
+      });
     return listTransform(rows);
   };
 

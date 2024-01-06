@@ -5,6 +5,7 @@ import ErrorPage from "../pages/base/ErrorPage";
 import { ISwitchItem } from "react-declarative";
 import KanbanPage from "../pages/view/KanbanPage";
 import LoginPage from "../pages/base/LoginPage";
+import SettingsPage from "../pages/view/SettingsPage";
 import heavy from "../components/hoc/heavy";
 import ioc from "../lib/ioc";
 import redirect from "../components/hoc/redirect";
@@ -63,6 +64,21 @@ export const routes: IRouteItem[] = [
     sideMenu: "root.data.employee.inactive",
     element: EmployeePage,
   },
+  {
+    path: "/settings",
+    sideMenu: "root.application.settings",
+    element: SettingsPage,
+  },
+  {
+    path: "/settings/features",
+    sideMenu: "root.application.settings",
+    element: SettingsPage,
+  },
+  {
+    path: "/settings/visibility",
+    sideMenu: "root.application.settings",
+    element: SettingsPage,
+  },
   ...baseRoutes,
 ];
 
@@ -77,12 +93,24 @@ export const handleTabClick = (path: string) => {
   if (path === "root.data.employee.history") {
     ioc.routerService.replace(`/employee/${id}/history`);
   }
+
+  if (path === "root.application.settings.features") {
+    ioc.routerService.replace(`/settings/features`);
+  }
+  if (path === "root.application.settings.visibility") {
+    ioc.routerService.replace(`/settings/visibility`);
+  }
 };
 
 export const handleOptionClick = (path: string) => {
   if (path === "root.data.kanban") {
     ioc.routerService.push("/kanban");
   }
+
+  if (path === "root.application.settings") {
+    ioc.routerService.push("/settings");
+  }
+
   if (path === "root.data.employee") {
     ioc.routerService.push("/employee_active");
   }

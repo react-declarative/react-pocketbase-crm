@@ -34,27 +34,25 @@ export const sidemenu: IScaffold2Group[] = [
         tabs: [
           {
             id: "data",
-            isVisible: () => hasRouteMatch([
-              "/employee/:id",
-              "/employee/:id/employee",
-              "/employee/:id/history"
-            ]),
-            isActive: () => hasRouteMatch([
-              "/employee/:id",
-              "/employee/:id/employee",
-            ]),
+            isVisible: () =>
+              hasRouteMatch([
+                "/employee/:id",
+                "/employee/:id/employee",
+                "/employee/:id/history",
+              ]),
+            isActive: () =>
+              hasRouteMatch(["/employee/:id", "/employee/:id/employee"]),
           },
           {
             id: "history",
-            isVisible: () => hasRouteMatch([
-              "/employee/:id",
-              "/employee/:id/employee",
-              "/employee/:id/history"
-            ]),
-            isActive: () => hasRouteMatch([
-              "/employee/:id/history"
-            ]),
-          }
+            isVisible: () =>
+              hasRouteMatch([
+                "/employee/:id",
+                "/employee/:id/employee",
+                "/employee/:id/history",
+              ]),
+            isActive: () => hasRouteMatch(["/employee/:id/history"]),
+          },
         ],
       },
       { id: "never", label: "lorem ipsum", icon: DnsRoundedIcon },
@@ -71,7 +69,36 @@ export const sidemenu: IScaffold2Group[] = [
   {
     id: "application",
     children: [
-      { id: "settings", icon: SettingsIcon },
+      {
+        id: "settings",
+        icon: SettingsIcon,
+        tabs: [
+          {
+            id: "features",
+            isVisible: () =>
+              hasRouteMatch([
+                "/settings",
+                "/settings/features",
+                "/settings/visibility",
+              ]),
+            isActive: () =>
+              hasRouteMatch([
+                "/settings",
+                "/settings/features",
+              ]),
+          },
+          {
+            id: "visibility",
+            isVisible: () =>
+              hasRouteMatch([
+                "/settings",
+                "/settings/features",
+                "/settings/visibility",
+              ]),
+            isActive: () => hasRouteMatch(["/settings/visibility"]),
+          },
+        ],
+      },
       { id: "never", label: "lorem ipsum", icon: TimerIcon },
       { id: "never", label: "lorem ipsum", icon: PhonelinkSetupIcon },
     ],

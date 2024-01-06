@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 
 import { IEmployeeRow } from "../../../../lib/services/db/EmployeeDbService";
 import ioc from "../../../../lib/ioc";
+import { useEmployeeModal } from "../../../../view/useEmployeePreviewModal";
 
 const rows: IBoardRow<IEmployeeRow>[] = [
   {
@@ -12,6 +13,7 @@ const rows: IBoardRow<IEmployeeRow>[] = [
   {
     label: "Email",
     value: (id, employee) => employee.email,
+    click: (id, data, payload) => payload.pickEmployeePreviewModal(id),
   },
   {
     label: "Phone",
@@ -50,6 +52,8 @@ export const MainPage = ({
   data,
 }: IOutletProps) => {
 
+  const pickEmployeePreviewModal = useEmployeeModal();
+
   const getItems = useCallback((): IBoardItem<IEmployeeRow>[] => {
     const employees = data as IEmployeeRow[];
     return employees.map((employee) => {
@@ -58,6 +62,7 @@ export const MainPage = ({
         column: employee.status,
         data: employee,
         label: employee.id,
+        updatedAt: employee.updated,
       };
     });
   }, []);
@@ -65,11 +70,12 @@ export const MainPage = ({
   const [items, setItems] = useState(getItems);
 
   const handleChangeColumn = async (id: string, status: string) => {
-    ioc.employeeViewService.update(id, { status } as IEmployeeRow);
+    const { updated } = await ioc.employeeViewService.update(id, { status } as IEmployeeRow);
     setItems((items) => items.map((item) => {
       if (item.id === id) {
         item.data.status = status;
         item.column = status;
+        item.updatedAt = updated;
       }
       return item;
     }));
@@ -77,10 +83,15 @@ export const MainPage = ({
 
   return (
     <KanbanView
+      withUpdateOrder
       sx={{
         height: "calc(100vh - 100px)",
       }}
       onChangeColumn={handleChangeColumn}
+      onCardLabelClick={pickEmployeePreviewModal}
+      payload={() => ({
+        pickEmployeePreviewModal,
+      })}
       columns={columns}
       items={items}
     />
