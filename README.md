@@ -12,6 +12,7 @@ Also, for some tasks making a full backup of your data is much easier when you g
 
 ![kabnan](./docs/kanban.gif)
 
+([Source code](./src/pages/view/KanbanPage))
 
 ## Data grid and JSON template engine
 
@@ -19,8 +20,13 @@ Also, for some tasks making a full backup of your data is much easier when you g
 
 ![list](./docs/list.gif)
 
+([Source code](./src/pages/view/EmployeePage))
+
 ## Feature model and dynamic field visibility
 
 > The subset of fields can be hidden from settings. The behaviour of buttons can be changed by using feature flags
 
 ![settings](./docs/settings.gif)
+
+([Source code](./src/pages/view/SettingsPage))
+
