@@ -7,6 +7,7 @@ import {
   ScrollAdjust,
 } from "react-declarative";
 
+import { Container } from "@mui/material";
 import employee_fields from "../../../../assets/employee_fields";
 import ioc from "../../../../lib/ioc";
 
@@ -46,7 +47,7 @@ export const OnePage = ({
   };
 
   return (
-    <>
+    <Container>
       <Breadcrumbs2
         onAction={handleAction}
         items={options}
@@ -61,7 +62,7 @@ export const OnePage = ({
         onChange={onChange}
       />
       <ScrollAdjust />
-    </>
+    </Container>
   );
 };
 

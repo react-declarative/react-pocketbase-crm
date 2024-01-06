@@ -6,7 +6,7 @@ import {
   VirtualView,
   useAsyncAction,
 } from "react-declarative";
-import { List, ListItemButton, ListItemText } from "@mui/material";
+import { Container, ListItemButton, ListItemText, Paper } from "@mui/material";
 
 import { IHistoryRow } from "../../../../lib/services/db/HistoryDbService";
 import dayjs from "dayjs";
@@ -66,15 +66,15 @@ export const HistoryPage = ({
   };
 
   return (
-    <>
+    <Container>
       <Breadcrumbs2
         payload={formState}
         items={options}
         onAction={handleAction}
       />
       <VirtualView
-        component={List}
-        sx={{ height: "calc(100vh - 200px)" }}
+        component={Paper}
+        sx={{ height: "calc(100vh - 225px)" }}
         minHeight={72}
         loading={loading}
         onDataRequest={(initial) => void execute(initial)}
@@ -88,7 +88,7 @@ export const HistoryPage = ({
           </ListItemButton>
         ))}
       </VirtualView>
-    </>
+    </Container>
   );
 };
 

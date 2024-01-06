@@ -7,6 +7,7 @@ import {
   VisibilityView,
 } from "react-declarative";
 
+import Container from "@mui/material/Container";
 import employee_fields from "../../../../assets/employee_fields";
 
 const options: IBreadcrumbs2Option[] = [
@@ -47,7 +48,7 @@ export const VisibilityPage = ({
     }
   };
   return (
-    <>
+    <Container>
       <Breadcrumbs2
         items={options}
         onAction={handleAction}
@@ -59,7 +60,7 @@ export const VisibilityPage = ({
         groups={groups}
         onChange={({ employee }) => onChange(employee)}
       />
-    </>
+    </Container>
   );
 };
 

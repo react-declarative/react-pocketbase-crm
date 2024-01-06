@@ -7,6 +7,8 @@ import {
   IOutletProps,
 } from "react-declarative";
 
+import { Container } from "@mui/material";
+
 const options: IBreadcrumbs2Option[] = [
   {
     type: Breadcrumbs2Type.Link,
@@ -57,7 +59,7 @@ export const FeaturePage = ({
     }
   };
   return (
-    <>
+    <Container>
       <Breadcrumbs2
         items={options}
         onAction={handleAction}
@@ -69,7 +71,7 @@ export const FeaturePage = ({
         features={features}
         onChange={onChange}
       />
-    </>
+    </Container>
   );
 };
 
