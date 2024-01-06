@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 
 import { IEmployeeRow } from "../../../../lib/services/db/EmployeeDbService";
 import ioc from "../../../../lib/ioc";
-import { useEmployeeModal } from "../../../../view/useEmployeePreviewModal";
+import { useEmployeePreviewModal } from "../../../../view/useEmployeePreviewModal";
 
 const rows: IBoardRow<IEmployeeRow>[] = [
   {
@@ -52,7 +52,7 @@ export const MainPage = ({
   data,
 }: IOutletProps) => {
 
-  const pickEmployeePreviewModal = useEmployeeModal();
+  const pickEmployeePreviewModal = useEmployeePreviewModal();
 
   const getItems = useCallback((): IBoardItem<IEmployeeRow>[] => {
     const employees = data as IEmployeeRow[];

@@ -10,7 +10,7 @@ const DEFAULT_PATH = "/employee/employee";
 
 const history = createMemoryHistory();
 
-export const useEmployeeModal = () => {
+export const useEmployeePreviewModal = () => {
   const { push, pop } = useModalManager();
 
   const { pickData, render } = useOutletModal({
@@ -25,12 +25,18 @@ export const useEmployeeModal = () => {
         <Close />
       </IconButton>
     ),
-    fetchState: async (id) => [await ioc.employeeViewService.read(id)],
+    fetchState: async (id) => [
+      await ioc.employeeViewService.read(id),
+      await ioc.permissionService.getFeatures(),
+      await ioc.permissionService.getVisibility(),
+    ],
     mapInitialData: (_, [employee]) => ({
       employee,
     }),
-    mapPayload: (id) => ({
+    mapPayload: (id, [, features, visibility]) => ({
       id,
+      features,
+      visibility,
     }),
     onLoadStart: () => ioc.layoutService.setAppbarLoader(true),
     onLoadEnd: () => ioc.layoutService.setAppbarLoader(false),
@@ -60,4 +66,4 @@ export const useEmployeeModal = () => {
   };
 };
 
-export default useEmployeeModal;
+export default useEmployeePreviewModal;

@@ -15,11 +15,14 @@ import { IEmployeeRow } from "../../../../../../../lib/services/db/EmployeeDbSer
 import ioc from "../../../../../../../lib/ioc";
 import useEmployeeListAction from "../../../../../../../hooks/useEmployeeListAction";
 import useEmployeePaginator from "../../../../../../../api/useEmployeePaginator";
+import useEmployeePreviewModal from "../../../../../../../view/useEmployeePreviewModal";
 
 const heightRequest = () => window.innerHeight - 80;
 
 export const EmployeeInactivePage = ({ payload }: IOutletProps) => {
   const { listProps } = useQueryPagination();
+
+  const pickEmployeePreviewModal = useEmployeePreviewModal();
 
   const { commitRowAction, commitAction } = useEmployeeListAction({
     payload,
@@ -27,7 +30,12 @@ export const EmployeeInactivePage = ({ payload }: IOutletProps) => {
 
   const handler = useEmployeePaginator();
 
-  const handleRowClick = (row: IEmployeeRow) => {
+  const handleRowClick = async (row: IEmployeeRow) => {
+    const features = await ioc.permissionService.getFeatures();
+    if (features.has("employee_preview_modal")) {
+      pickEmployeePreviewModal(row.id);
+      return;
+    }
     ioc.routerService.push(`/employee/${row.id}`);
   };
 
@@ -47,6 +55,7 @@ export const EmployeeInactivePage = ({ payload }: IOutletProps) => {
       payload={() => ({
         ...payload,
         _inactive: true,
+        _filters: true,
       })}
       onRowClick={handleRowClick}
       onRowAction={commitRowAction}

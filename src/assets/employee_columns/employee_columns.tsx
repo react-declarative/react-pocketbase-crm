@@ -71,18 +71,21 @@ export const rowActions: IListRowAction[] = [
   {
     label: "Open preview",
     action: "open-preview",
+    isDisabled: (row, { features }) => !features.has("employee_preview_modal"),
     icon: ArrowForward,
   },
   {
     label: "Active",
     action: "toggle-active",
     icon: CheckBoxOutlineBlankIcon,
+    isDisabled: (row, { features }) => !features.has("employee_toggle_inactive"),
     isVisible: (row) => !row.is_active,
   },
   {
     label: "Active",
     action: "toggle-active",
     icon: CheckBoxIcon,
+    isDisabled: (row, { features }) => !features.has("employee_toggle_inactive"),
     isVisible: ({ is_active }) => !!is_active,
   },
 ];

@@ -61,6 +61,8 @@ export const EmployeePage = ({ id = "never" }: IEmployeePageProps) => {
 
   const fetchState = async () => [
     await trycatch(ioc.employeeViewService.read)(id),
+    await ioc.permissionService.getFeatures(),
+    await ioc.permissionService.getVisibility(),
   ];
 
   const changeSubject = useSubject();
@@ -78,7 +80,7 @@ export const EmployeePage = ({ id = "never" }: IEmployeePageProps) => {
 
   return (
     <FetchView state={fetchState} fallback={ioc.errorService.handleGlobalError}>
-      {async ([employee]) => (
+      {async ([employee, features, visibility]) => (
         <OutletView
           changeSubject={changeSubject}
           history={ioc.routerService}
@@ -90,7 +92,8 @@ export const EmployeePage = ({ id = "never" }: IEmployeePageProps) => {
             employee,
           }}
           payload={() => ({
-            employee,
+            features,
+            visibility,
             id,
           })}
           onChange={console.log}

@@ -6,6 +6,7 @@ import HistoryDbService from './services/db/HistoryDbService';
 import HistoryViewService from './services/view/HistoryViewService';
 import LayoutService from './services/base/LayoutService';
 import LoggerService from './services/base/LoggerService';
+import PermissionService from './services/global/PermissionService';
 import PocketbaseService from './services/base/PocketbaseService';
 import RouterService from './services/base/RouterService';
 import SettingsDbService from './services/db/SettingsDbService';
@@ -27,3 +28,5 @@ provide(TYPES.settingsDbService, () => new SettingsDbService());
 provide(TYPES.employeeViewService, () => new EmployeeViewService());
 provide(TYPES.historyViewService, () => new HistoryViewService());
 provide(TYPES.settingsViewService, () => new SettingsViewService());
+
+provide(TYPES.permissionService, () => new PermissionService());

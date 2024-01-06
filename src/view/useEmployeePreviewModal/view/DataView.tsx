@@ -11,6 +11,7 @@ export const DataView = ({ history, payload, data }: IOutletProps) => (
     <One
       fields={employee_fields}
       handler={() => data}
+      payload={payload}
       outlinePaper
       readonly
     />

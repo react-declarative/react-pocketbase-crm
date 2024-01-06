@@ -60,7 +60,6 @@ export class SettingsDbService {
     } else {
       item = readTransform(await this.pocketbaseService.pb.collection<ISettingsDocument>("settings").update(item.id, payload));
     }
-    this.updateSubject.next(item);
     return item;
   });
 
@@ -68,9 +67,6 @@ export class SettingsDbService {
     this.pocketbaseService.pb
       .collection("settings")
       .subscribe<ISettingsDocument>("*", ({ action, record }) => {
-        if (action === "create") {
-          this.updateSubject.next(readTransform(record));
-        }
         if (action === "update") {
           this.updateSubject.next(readTransform(record));
         }

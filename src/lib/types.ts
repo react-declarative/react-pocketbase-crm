@@ -7,22 +7,27 @@ const baseServices = {
     pocketbaseService: Symbol.for('pocketbaseService'),
 };
 
-const dbService = {
+const dbServices = {
     employeeDbService: Symbol.for('employeeDbService'),
     historyDbService: Symbol.for('historyDbService'),
     settingsDbService: Symbol.for('settingsDbService'),
 };
 
-const viewService = {
+const viewServices = {
     employeeViewService: Symbol.for('employeeViewService'),
     historyViewService: Symbol.for('historyViewService'),
     settingsViewService: Symbol.for('settingsViewService'),
 };
 
+const globalServices = {
+    permissionService: Symbol.for('permissionService'),
+};
+
 export const TYPES = {
     ...baseServices,
-    ...dbService,
-    ...viewService,
+    ...dbServices,
+    ...viewServices,
+    ...globalServices,
 };
 
 export default TYPES;

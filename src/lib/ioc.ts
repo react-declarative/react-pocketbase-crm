@@ -1,6 +1,6 @@
 import "./config";
 
-import { Operator, Source, inject } from "react-declarative";
+import { Operator, Source, inject, reloadPage, sleep } from "react-declarative";
 
 import AlertService from "./services/base/AlertService";
 import { CC_LOADER_NOT_RESPONDING_TICKS } from "../config/params";
@@ -11,6 +11,7 @@ import HistoryDbService from "./services/db/HistoryDbService";
 import HistoryViewService from "./services/view/HistoryViewService";
 import LayoutService from "./services/base/LayoutService";
 import LoggerService from "./services/base/LoggerService";
+import PermissionService from "./services/global/PermissionService";
 import PocketbaseService from "./services/base/PocketbaseService";
 import RouterService from "./services/base/RouterService";
 import SettingsDbService from "./services/db/SettingsDbService";
@@ -38,10 +39,15 @@ const viewServices = {
   settingsViewService: inject<SettingsViewService>(TYPES.settingsViewService),
 };
 
+const permissionServices = {
+  permissionService: inject<PermissionService>(TYPES.permissionService),
+};
+
 const ioc = {
   ...baseServices,
   ...dbServices,
   ...viewServices,
+  ...permissionServices,
 };
 
 ioc.layoutService.setModalLoader(true);
@@ -69,6 +75,10 @@ Source.join(
       ioc.layoutService.dropAppbarLoader();
     }
   });
+
+ioc.settingsViewService.updateSubject.subscribe(async () => {
+  reloadPage();
+});
 
 (window as any).ioc = ioc;
 

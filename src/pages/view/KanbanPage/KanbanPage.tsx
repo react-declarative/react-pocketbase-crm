@@ -17,14 +17,13 @@ export const KanbanPage = () => {
   const fetchState = async () =>
     [
       await ioc.employeeViewService.findAll(),
+      await ioc.permissionService.getFeatures(),
+      await ioc.permissionService.getVisibility(),
     ] as const;
 
   return (
-    <FetchView
-      state={fetchState}
-      fallback={ioc.errorService.handleGlobalError}
-    >
-      {async ([employees]) => (
+    <FetchView state={fetchState} fallback={ioc.errorService.handleGlobalError}>
+      {async ([employees, features, visibility]) => (
         <OutletView
           history={ioc.routerService}
           routes={routes}
@@ -32,7 +31,8 @@ export const KanbanPage = () => {
             employees,
           }}
           payload={() => ({
-            // permissions,
+            features,
+            visibility,
           })}
         />
       )}
