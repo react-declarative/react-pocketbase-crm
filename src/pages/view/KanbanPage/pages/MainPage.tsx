@@ -1,5 +1,11 @@
-import { IBoardColumn, IBoardItem, IBoardRow, IOutletProps, KanbanView } from "react-declarative";
-import { useCallback, useState } from "react";
+import {
+  IBoardColumn,
+  IBoardItem,
+  IBoardRow,
+  IOutletProps,
+  KanbanView,
+} from "react-declarative";
+import { useCallback, useEffect, useState } from "react";
 
 import { IEmployeeRow } from "../../../../lib/services/db/EmployeeDbService";
 import ioc from "../../../../lib/ioc";
@@ -8,7 +14,8 @@ import { useEmployeePreviewModal } from "../../../../view/useEmployeePreviewModa
 const rows: IBoardRow<IEmployeeRow>[] = [
   {
     label: "Display name",
-    value: (id, employee) => [employee.first_name, employee.last_name].join(" "),
+    value: (id, employee) =>
+      [employee.first_name, employee.last_name].join(" "),
   },
   {
     label: "Email",
@@ -45,13 +52,10 @@ const columns: IBoardColumn<IEmployeeRow>[] = [
     color: "#FFA000",
     column: "Retired",
     rows,
-  }
+  },
 ];
 
-export const MainPage = ({
-  data,
-}: IOutletProps) => {
-
+export const MainPage = ({ data }: IOutletProps) => {
   const pickEmployeePreviewModal = useEmployeePreviewModal();
 
   const getItems = useCallback((): IBoardItem<IEmployeeRow>[] => {
@@ -70,16 +74,39 @@ export const MainPage = ({
   const [items, setItems] = useState(getItems);
 
   const handleChangeColumn = async (id: string, status: string) => {
-    const { updated } = await ioc.employeeViewService.update(id, { status } as IEmployeeRow);
-    setItems((items) => items.map((item) => {
-      if (item.id === id) {
-        item.data.status = status;
-        item.column = status;
-        item.updatedAt = updated;
-      }
-      return item;
-    }));
+    const { updated } = await ioc.employeeViewService.update(id, {
+      status,
+    } as IEmployeeRow);
+    setItems((items) =>
+      items.map((item) => {
+        if (item.id === id) {
+          item.data.status = status;
+          item.column = status;
+          item.updatedAt = updated;
+        }
+        return item;
+      })
+    );
   };
+
+  useEffect(
+    () =>
+      ioc.employeeViewService.updateSubject.subscribe(
+        ([id, { status, updated }]) => {
+          setItems((items) =>
+            items.map((item) => {
+              if (item.id === id) {
+                item.data.status = status;
+                item.column = status;
+                item.updatedAt = updated;
+              }
+              return item;
+            })
+          );
+        }
+      ),
+    [items]
+  );
 
   return (
     <KanbanView
@@ -95,7 +122,7 @@ export const MainPage = ({
       columns={columns}
       items={items}
     />
-  )
+  );
 };
 
 export default MainPage;
