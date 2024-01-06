@@ -1,4 +1,4 @@
-# ⚛️ react-salary-app
+# ⚛️ react-pocketbase-crm
 
 > The most advanced starter kit for CRM system build with [Pocketbase](https://pocketbase.io/). It includes Kanban board, JSON form layout engine, feature model support, field visibility flags, grid component with fulltext search and modal filters.
 
