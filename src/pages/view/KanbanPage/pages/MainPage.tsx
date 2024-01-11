@@ -111,6 +111,7 @@ export const MainPage = ({ data }: IOutletProps) => {
   return (
     <KanbanView
       withUpdateOrder
+      withGoBack
       sx={{
         height: "calc(100vh - 100px)",
       }}
