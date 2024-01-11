@@ -5,7 +5,7 @@ import {
   IOutletProps,
   KanbanView,
 } from "react-declarative";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { IEmployeeRow } from "../../../../lib/services/db/EmployeeDbService";
 import ioc from "../../../../lib/ioc";
@@ -56,6 +56,9 @@ const columns: IBoardColumn<IEmployeeRow>[] = [
 ];
 
 export const MainPage = ({ data }: IOutletProps) => {
+
+  const boardRef = useRef<HTMLDivElement>();
+
   const pickEmployeePreviewModal = useEmployeePreviewModal();
 
   const getItems = useCallback((): IBoardItem<IEmployeeRow>[] => {
@@ -108,8 +111,11 @@ export const MainPage = ({ data }: IOutletProps) => {
     [items]
   );
 
+  useEffect(KanbanView.enableScrollOnDrag(boardRef), []);
+
   return (
     <KanbanView
+      ref={boardRef}
       withUpdateOrder
       withGoBack
       sx={{
