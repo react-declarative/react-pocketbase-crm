@@ -16,6 +16,7 @@ export const useEmployeePreviewModal = () => {
   const { pickData, render } = useOutletModal({
     history,
     withActionButton: true,
+    withStaticAction: true,
     animation: "none",
     title: "Preview",
     pathname: "/apartment/object",
